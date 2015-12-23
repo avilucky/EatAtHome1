@@ -1,0 +1,52 @@
+#order_details_div
+  %h2#order_details_name= "Order # "+ @order.id.to_s
+  %p
+    Food Ordered:
+    %a{:href => food_item_path(@order.food_item_portion.food_item)}
+      %span=@order.food_item_portion.food_item.name
+  %p
+    Cook:
+    %a{:href => user_path(@order.seller)}
+      %span=@order.seller.full_name
+  
+  %p
+    Customer:
+    %a{:href => user_path(@order.customer)}
+      %span=@order.customer.full_name
+  %h3 Details
+  %ul#details
+    %li
+      Portion Name:
+      =@order.food_item_portion.portion
+    %li
+      Quantity:
+      =@order.quantity
+    %li
+      Price Per Portion:
+      =@order.food_item_portion.price
+    %li
+      Total Price:
+      =@order.quantity * @order.food_item_portion.price
+      
+    -if not @order.accepted_time.nil? 
+      %li
+        Order Accepted at:
+        =@order.accepted_time
+        
+    %li
+      Status:
+      = @order.status
+%p
+- if @current_user.id == @order.customer_id and @order.status == "pending"
+  #food_actions_div
+    %h3 Actions
+    = button_to 'Cancel Order', change_status_path({:id=>@order.id,:status=>"cancelled"}), :method => :post, :onclick => "return confirm('Are you sure?')"
+- if @current_user.id == @order.seller_id and @order.status == "pending"
+  #food_actions_div
+    %h3 Actions
+    = button_to 'Accept Order', change_status_path({:id=>@order.id,:status=>"accepted"}), :method => :post   
+    = button_to 'Reject Order', change_status_path({:id=>@order.id,:status=>"rejected"}), :method => :post, :onclick => "return confirm('Are you sure?')"
+    
+    
+    
+    

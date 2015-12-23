@@ -1,0 +1,16 @@
+= form_for ([@food_item, @food_review]) do |f|
+  - if @food_review.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@food_review.errors.count, "error")} prohibited this food_review from being saved:"
+      %ul
+        - @food_review.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :rating
+    = select :food_review, 'rating', options_for_select([1,2,3,4,5])
+  .form-group
+    = f.label :comment, "Comments"
+    = f.text_area :comment
+  .form-group
+    = f.submit 'Save'

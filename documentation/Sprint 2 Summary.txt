@@ -1,0 +1,32 @@
+During this iteration, we tried to complete the core functionality of our site
+as much as possible. This means allowing users to search for foods that have
+been listed on the site according to several fields (name, category, and
+location), and we also allowed users to order foods. This involved creating
+a notion of transactions and providing users with the ability to view and
+manage their transactions.
+
+Overall, this iteration was quite successful. We implemented all of the features
+that we had planned for this iteration, and we also finished our backlog
+from the previous iteration, which consisted of allowing image uploads for 
+foods. Just as before, we were also able to achieve 100% coverage using
+SimpleCov, and our app was pushed successfully to Heroku.
+
+This iteration was also more smooth than the previous one in terms of the
+drawbacks we found for iteration one; namely, we had many fewer merge conflicts
+this time, and we spent much less time on refactoring. Ultimately, this
+translated into being able to complete many more features during this iteration.
+
+Probably the largest challenge in this iteration was allowing users to upload
+images for food items. We initially implemented this feature by saving images
+directly to the app's file system, which worked on Cloud9. However, Heroku
+does not allow apps to upload files directly, as it uses what Heroku describes
+as an "ephemeral" file system, which essentially means that files can only be
+saved temporarily before they are automatically deleted. To solve this, we
+set up an Amazon Web Service account for the site and began saving images to
+AWS instead of storing them locally. This required some time to research
+AWS accounts and gems, but we ultimately were successful in getting image
+uploads to work correctly on Heroku.
+
+Our next iteration will be focused on adding some supplementary features to 
+improve user experiences. We will be adding a review system for foods, and we
+will also try to improve the look and feel of the site.

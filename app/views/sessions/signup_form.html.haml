@@ -1,0 +1,26 @@
+= form_tag signup_path do
+    = label :sessions, :first_name, 'First Name:'
+    = text_field :sessions, 'first_name', :value => @defaults["first_name"]
+    = label :sessions, :last_name, 'Last Name:'
+    = text_field :sessions, 'last_name', :value => @defaults["last_name"]
+    
+    = label :sessions, :email, 'Email:', :value => @defaults["email"]
+    = text_field :sessions, 'email'
+    = label :sessions, :password, 'Password:'
+    = password_field :sessions, 'password'
+    = label :sessions, :password_confirm, 'Confirm Password:'
+    = password_field :sessions, 'password_confirm'
+    %h2 Address
+    = label :sessions, :address_one, 'Line 1:'
+    = text_field :sessions, 'address_one', :value => @defaults["address_one"]
+    = label :sessions, :address_two, 'Line 2:'
+    = text_field :sessions, 'address_two', :value => @defaults["address_two"]
+    = label :sessions, :apt_num, 'Apt #:'
+    = text_field :sessions, 'apt_num', :value => @defaults["apt_num"]
+    = label :sessions, :city, 'City:'
+    = text_field :sessions, 'city', :value => @defaults["first_name"]
+    = label :sessions, :state, 'State:'
+    = select :sessions, 'state', options_for_select(@states, @defaults["state"])
+    = label :sessions, :zip, 'Zip:'
+    = text_field :sessions, 'zip', :value => @defaults["zip"], :maxlength => 5
+    = submit_tag 'Sign up'

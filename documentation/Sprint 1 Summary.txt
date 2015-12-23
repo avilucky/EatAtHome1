@@ -1,0 +1,34 @@
+During this iteration, we focused on getting the primary models of our system in
+place, including the notions of users and food items. We implemented necessary
+prerequisite features like signup, login, account management, and food item
+creation. Having these building blocks in place will allow us to add more
+site-specific functionality in the next iteration, such as searching foods
+and placing orders.
+
+Overall, this iteration was fairly successful, as we implemented almost all of
+the features that we specified at the outset. We were also able to achieve 100%
+coverage using SimpleCov, and we were able to push a functional app out to
+Heroku to close out the iteration.
+
+The only feature that is still outstanding is being able to add pictures to our 
+food pages. While this is an important feature for the site, the fact that it is
+not finished willnot block our progression onto our second set of features in
+the next sprint, so not having it done at this point is not critical.
+
+One of the primary problems we face during this sprint has to do with managing
+checkins. Team members would often check in code in varying states of 
+correctness, which would lead to broken tests and confusion among other team
+members. To mitigate this in the future, we have decided as a team that we
+will ensure that every test is always passing, which means no code can be
+pushed to master if even a single test is failing. This will ensure that all 
+code checked into master is in a good state, and it will mean that each team 
+member can trust that new checkouts will not break existing functionality.
+
+Another challenge we faced had to do with the need to refactor substantially
+throughout the sprint. This was often due to learning about new gems and 
+features in class after a more rudimentary version had been implemented already
+on the site. For instance, we refactored our form validation for signup after
+learning about validations in class. While this is largely unavoidable in a
+learning environment, we believe the impact of these issues will be dimished
+as we finish rudimentary features like signup and login and move onto more
+site-specific features.

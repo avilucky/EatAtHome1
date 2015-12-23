@@ -1,0 +1,69 @@
+#food_image_div 
+  #slides
+    - if @food_item.has_image
+      - @food_item.food_images.each do |p|
+        %div.slide_wrapper
+          %span.image_wrapper
+            = image_tag image_path(p.relative_path)
+          - if @current_user!=nil and @current_user.id == @food_item.user_id
+            = link_to "Delete Image", food_image_path(p), :method => :delete, :class => "image_delete", :onclick => "return confirm('Are you sure you want to delete this image?')"
+
+    - else
+      %span.image_wrapper
+        = image_tag image_path("no_image.jpg")
+
+#food_details_div
+  %h2#food_details_name= @food_item.name
+  = link_to user_path(@food_item.user) do
+    %p#food_details_cook= @food_item.user.full_name
+  -if @current_user!=nil
+    - if @current_user.following?(@food_item.user)
+      = link_to 'Unfollow Cook', unfollow_user_path(@food_item.user, :food_id=>@food_item.id),:method => :get
+    - else
+      = link_to 'Follow Cook', follow_user_path(@food_item.user,:food_id=>@food_item.id),:method => :get
+    
+    
+  %ul#details
+    %li
+      Category:
+      = @food_item.category
+    - if @current_user!=nil
+      %li
+        Distance:
+        = @food_item.user.distance_from(@current_user).to_i.to_s + " miles"
+    %li
+      Portions:
+      - if @current_user!=nil and @current_user.id == @food_item.user_id
+        - @food_item.food_item_portions.each do |portion|
+          %br
+          Portion :
+          =portion.portion
+          Price :
+          =portion.price
+      - if @current_user!=nil and @current_user.id != @food_item.user_id
+        = form_tag place_order_path do
+          #myfiportions= @food_item.food_item_portions.to_json
+          Portions:
+          = collection_select :order, :food_item_portion, @food_item.food_item_portions, :id, :portion
+          Price :
+          #fooditemportionprice
+          %br
+          Quantity :
+          = text_field :order, 'quantity', :id => 'qtyPortionsShow'
+          %br
+          = submit_tag 'Place Order', :id=>"placeOrderButton", :class => "action_food_item_button"
+          
+  %p#description= @food_item.description
+
+- if @current_user!=nil and @current_user.id == @food_item.user_id
+  #food_actions_div
+    %h3 Actions
+    = button_to 'Edit', edit_food_item_path(@food_item), :method => :get, :class => "action_food_item_button"
+    = button_to 'Delete', food_item_path(@food_item), :method => :delete, :onclick => "return confirm('Are you sure?')", :class => "action_food_item_button"
+    - if @food_item.availability
+      = button_to "Make Unavailable", food_items_availability_update_path(@food_item, :food_items => {:availability => false}), :method => :put, :id => "toggle_avail", :class => "action_food_item_button"
+    - else
+      = button_to "Make Available", food_items_availability_update_path(@food_item, :food_items => {:availability => true}), :method => :put, :id => "toggle_avail", :class => "action_food_item_button"
+    = button_to "Add Image", new_food_item_food_image_path(@food_item), :method => :get
+      
+= link_to "See All Reviews", food_item_food_reviews_path(@food_item), :method => :get

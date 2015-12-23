@@ -1,0 +1,98 @@
+#tabs
+  %ul
+    %li
+      <a href="#tabs-1">Profile</a>
+    %li
+      <a href="#tabs-2">Foods</a>
+    - if @current_user!=nil and @current_user.id==@user.id
+      %li
+        <a href="#tabs-3">Transactions</a>
+      %li
+        <a href="#tabs-4">Following</a>
+    
+  #tabs-1
+    #user_images_div
+      #slides_user
+        - if @user.has_image
+          - @user.user_images.each do |p|
+            %div.slide_wrapper
+              %span.image_wrapper
+                = image_tag image_path(p.relative_path)
+                = link_to "Delete Image", user_user_image_path(@user, p), :method => :delete, :class => "image_delete", :onclick => "return confirm('Are you sure you want to delete this image?')"
+  
+        - else
+          %span.image_wrapper
+            = image_tag image_path("no_image.jpg")
+
+    #user_detail_div          
+      %h2 Personal Details
+      %p= "First Name: " + @user.first_name
+      %p= "Last Name: " + @user.last_name
+      %p= "Email Name: " + @user.email
+      %h2 Address
+      %pre= @user.full_address
+      - if @current_user!=nil and @current_user.id==@user.id
+        =button_to "Edit Profile", update_form_path, :method => :get
+        - if @user.availability
+          = button_to "Make Unavailable", user_path(@user, :user => {:availability => false}), :method => :put, :id => 'toggle_avail'
+        - else
+          = button_to "Make Available", user_path(@user,:user => {:availability => true}), :method => :put, :id => 'toggle_avail'
+        = button_to "Add Your Photo", new_user_user_image_path(@user), :method=>:get
+
+  #tabs-2
+    - @user.food_items.each do |food|
+      %div.food_detail_div
+        %div.food_image_thumb
+          - if food.has_image
+            %span.image_wrapper
+              = image_tag image_path(food.food_images.first.relative_path)
+          - else
+            %span.image_wrapper
+              = image_tag image_path("no_image.jpg")
+        %p.food_detail_name= link_to "#{food.name}", food_item_path(food)
+        %p.food_detail_description= food.short_description
+    = link_to 'Add Food item', new_food_item_path
+  - if @current_user!=nil and @current_user.id==@user.id
+    #tabs-3
+      %table#order
+        %thead
+          %tr
+            %th Order Number
+            %th Food Item
+            %th Description
+            %th Bought/Sold
+            %th More Info
+            %th Review
+        %tbody
+          - if not @user.orders_as_customer.nil?
+            - @user.orders_as_customer.each do |order|
+              %tr
+                %td= order.id
+                %td= order.food_item_portion.food_item.name
+                %td= order.food_item_portion.food_item.description
+                %td  Bought
+                %td= link_to "More info", order_path(order.id)
+                %td= link_to "Write review", new_food_item_food_review_path(order.food_item_portion.food_item.id)
+          - if not @user.orders_as_seller.nil?
+            - @user.orders_as_seller.each do |order|
+              %tr
+                %td= order.id
+                %td= order.food_item_portion.food_item.name
+                %td= order.food_item_portion.food_item.description
+                %td  Sold
+                %td= link_to "More info", order_path(order.id)
+                %td= link_to "read review", food_item_food_reviews_path(order.food_item_portion.food_item), :method => :get
+    #tabs-4
+      %table#follow
+        %thead
+          %tr
+            %th Cook Name
+            %th Action
+        %tbody
+          -if not @user.following.nil?
+            - @user.following.each do |follow|
+              %tr
+                %td= follow.full_name
+                %td= link_to "Unfollow", unfollow_user_path(follow)
+          
+        

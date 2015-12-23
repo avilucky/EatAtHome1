@@ -1,0 +1,7 @@
+= form_tag login_path do
+    = label :sessions, :email, 'Email:'
+    = text_field :sessions, 'email'
+    = label :sessions, :password, 'Password:'
+    = password_field :sessions, 'password'
+    = submit_tag 'Login'
+    = link_to "Forget Your Password?", new_password_reset_path

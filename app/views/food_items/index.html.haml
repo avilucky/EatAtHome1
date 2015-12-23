@@ -1,0 +1,48 @@
+#search_column
+    = form_tag food_items_path, :method => :get do
+        %ul
+            %li
+                = label :food_items, :name, 'Name'
+                = text_field :food_items, 'name', :value => @defaults["name"], :class => "search_food_filter_tab search_text_box"
+            %li
+                = label :food_items, :category, 'Category'
+                = text_field :food_items, 'category', :value => @defaults["category"], :class => "search_food_filter_tab search_text_box"
+            %li
+                = label :food_items, :location, 'Location'
+                = text_field :food_items, 'location', :value => @defaults["location"], :class => "search_food_filter_tab search_text_box"
+            %li
+                = label :food_items, :radius, 'Radius:'
+                = select :food_items, 'radius', options_for_select([5,10,25,50,100], @defaults["radius"])
+            %li
+                = label :food_items, :rating, 'Rating:'
+                = select :food_items, 'rating', options_for_select([["", 0],["1 or above", 1],["2 or above", 2],["3 or above", 3],["4 or above", 4],["5", 5]], @defaults["rating"])
+            %li
+                %h3 Filters
+            %li
+                = label :food_items, :only_images, 'Images Only', :class=>'inline';
+                = check_box :food_items, 'only_images', :checked => (not @defaults["only_images"].nil? and @defaults["only_images"].to_s == "1")
+            %li
+                = label :food_items, :do_sort, 'Sort By Rating', :class=>'inline';
+                = check_box :food_items, 'do_sort', :checked_value => "1", :unchecked_value => "0", :checked => (not @defaults["do_sort"].nil? and @defaults["do_sort"].to_s == "1")
+        = submit_tag 'Search'
+#results_column
+    - if @foods.length>0
+        - @foods.each do |food|
+            %div.food_detail_div
+                %div.food_image_thumb
+                    - if food.has_image
+                        %span.image_wrapper
+                            = image_tag image_path(food.food_images.first.relative_path)
+                    - else
+                        %span.image_wrapper
+                            = image_tag image_path("no_image.jpg")
+                %p.food_detail_name= link_to "#{food.name}", food_item_path(food)
+                %p.food_detail_description= food.short_description
+                -if food.has_rating
+                    %p.food_detail_rating= "Rating: "+food.rating.to_s
+                -else
+                    %p.food_detail_rating= "Rating: None"
+                %p.food_detail_distance= "Distance: "+food.user.distance_from(@coordinates).to_i.to_s
+    - else
+        %div.food_not_found_div
+            %p Sorry, we couldn't find any matching foods. Please try editing your search query

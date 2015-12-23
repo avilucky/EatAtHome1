@@ -1,0 +1,47 @@
+!!!
+%html
+  %head
+    %title Eat At Home
+    = stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'application', 'data-turbolinks-track' => false
+    = javascript_include_tag 'master'
+    = javascript_include_tag 'jquery.slides.min'
+    = csrf_meta_tags
+
+  %body
+    %div#header
+      = link_to root_path do
+        %h1#page_title Eat At Home
+      #header_link_box
+        - if !@current_user
+          = link_to "Login", login_form_path
+          = link_to "Sign Up", signup_form_path
+  
+        -else
+          = link_to user_path(@current_user) do
+            #current_user= @current_user.full_name
+          = link_to "Logout", logout_path, method: :delete, id: "logout"
+      #header_search
+        = form_tag food_items_path, :method => :get do
+          = text_field :food_items, 'name', :id => "browse_foods_text", :class => "search_text_box"
+          = submit_tag 'Search Foods', :id => "browse_foods_submit"
+          - if @current_user!=nil
+            = text_field :food_items, 'location', :id => "browse_foods_city", :value => @current_user.city
+          - else
+            = text_field :food_items, 'location', :id => "browse_foods_city", :value => "Iowa City, Iowa"
+    #page_body
+      #message_header
+        - if flash[:notice]
+          #message_box.ui-state-highlight.ui-corner-all
+            %p
+              %span.ui-icon.ui-icon-info
+              =flash[:notice]
+        -if @errors!=nil
+          #message_box.ui-state-error.ui-corner-all
+            %span.ui-icon.ui-icon-alert
+            %ul
+              -@errors.each do |msg|
+                %li #{msg}
+      = yield
+    #footer
+      = link_to 'Help', page_path('help'), :id => "help_link"

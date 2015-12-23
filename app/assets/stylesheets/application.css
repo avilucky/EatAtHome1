@@ -1,0 +1,293 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+body{
+    font-family: "Helvetica Neue",Helvetica,Arial,Utkal,sans-serif;
+    font-size: 1rem;
+    width: 1024px;
+    margin: 0 auto;
+    background-color: #F2F2F2;
+}
+
+#header, #footer {
+    height: 100px;
+    background-color: #6699FF;
+}
+#footer {
+    clear: both;
+}
+
+#header_search {
+    float: right;
+    margin-right: 50px;
+}
+
+#browse_foods_text {
+    width: 300px;
+}
+
+#browse_foods_city {
+    display: none;
+}
+
+
+#browse_foods_submit {
+    clear:none !important;
+    display: inline !important;
+
+}
+
+
+
+#header_link_box {
+    float: right;
+}
+
+#header a {
+    color: white;
+}
+a:visited {
+    color: inherit;
+}
+
+#page_body {
+    margin: 10px;
+}
+
+label  {
+    display: block;
+    margin-bottom: 10px;
+}
+
+label.inline {
+    display: inline;
+}
+
+input, select {
+    margin-bottom: 10px;
+}
+
+#message_header {
+    display: block;
+    clear: both;
+    margin-bottom: 2px;
+}
+
+#message_box {
+    border-width: 1px;
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+#message_box .ui-icon {
+    float: left;
+    margin-right: 0.3em;
+}
+
+#welcome_image, #welcome_image img {
+    float:left;
+    width: 378px;
+    height: 250px;
+    margin-right: 5px;
+}
+
+#welcome_content {
+    height: 250px;
+}
+
+#food_items {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+#food_items th {
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: #6699FF;
+}
+#food_items th, #food_items td {
+  padding: 4px;
+  text-align: left;
+}
+#order {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+#order th {
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: #6699FF;
+}
+#order th, #order td {
+  padding: 4px;
+  text-align: left;
+}
+
+#follow {
+  margin: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  border-bottom: 2px solid black;
+}
+#follow th {
+  border: 2px solid white;
+  font-weight: bold;
+  background-color: #6699FF;
+}
+#follow th, #order td {
+  padding: 4px;
+  text-align: left;
+}
+input[type="submit"]:not(.action_food_item_button), input[type="button"] {
+    display: block;
+    clear: left;
+}
+
+.ui-button-text {
+   font-size: 0.8em !important;
+} 
+
+/*
+ Search Page Styling
+*/
+#search_column {
+    width: 200px;
+    float: left;
+    border-right: 2px solid black;
+}
+
+#results_column {
+    width: 800px;
+    float: right;
+}
+
+/*
+Food details page styling
+*/
+
+.image_delete {
+    display: block;
+}
+
+#user_images_div {
+    float: left;
+    height: 330px;
+    width: 300px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+#food_image_div {
+    float: left;
+    height: 330px;
+    width: 300px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.food_detail_div {
+    height: 140px;
+    border-bottom: 1px solid black;
+}
+
+.food_image_thumb {
+    float: left;
+    height: 100px;
+    width: 100px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    margin-right: 20px;
+    text-align: center;
+    clear: left;
+    margin-bottom: 5px;
+}
+
+.food_image_thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.image_wrapper img {
+    max-height: 100%;
+    max-width: 100%;
+    width : 100%;
+    height: 100%;
+    margin: auto;
+    vertical-align: middle;
+}
+.image_wrapper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#myfiportions { 
+    display: none;
+}
+
+#fooditemportionprice{
+    display: inline;
+}
+
+#qtyPortionsShow{
+    width: 30px;
+    display: inline;
+}
+
+#slides {
+      display:none;
+}
+
+.slidesjs-navigation {
+    float: left;
+    width: 30px;
+    height: 30px;
+}
+
+.slidesjs-container {
+    background-color: white;
+}
+
+.action_food_item_button {
+    display: inline-block;
+}
+
+.search_food_filter_tab {
+    width: 90%;
+}
+
+.search_text_box {
+    border-radius: 6px;
+    border: 2px solid gray;
+    padding: 3px;
+}
+
+#food_review_comment {
+    width: 500px;
+    height: 200px;
+}

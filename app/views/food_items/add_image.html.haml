@@ -1,0 +1,12 @@
+= form_for(@food_item, :html => { :multipart => true }) do |f|
+  .field
+    = f.label :title
+    %br
+      = f.text_field :title
+  = f.fields_for :food_images do |p|
+    .field
+      = p.label :avatar
+      %br
+        = p.file_field :avatar, :multiple => true, name: "food_images[avatar][]"
+  .actions
+    = f.submit

@@ -1,0 +1,39 @@
+%h1 Add a Food Item
+
+= form_tag food_items_path do
+  %ul
+    %li
+      = label :food_items, :name, 'Name : '
+      = text_field :food_items, 'name', :value => @food_item_defaults["name"]
+    
+    %li
+      = label :food_items, :category, 'Category : '
+      = text_field :food_items, 'category', :value => @food_item_defaults["category"]
+    
+    %li  
+      = label :food_items, :description, 'Description : '
+      = text_field :food_items, 'description', :value => @food_item_defaults["description"]
+    
+    %li
+      #Portions
+        -if @portion_defaults.nil? or @portion_defaults.empty?
+          %div#Portion1
+            = label :food_items, :portion[0], 'Portion # 1 : '
+            = text_field :food_items, 'portion[0]'
+            
+            = label :food_items, :price[0], 'Price : '
+            = text_field :food_items, 'price[0]'
+        -else
+          - @portion_defaults.keys.each do |portionKey|
+            %div{:id => "Portion#{(portionKey.to_i+1)}"}
+              = label :food_items, :portion[portionKey], "Portion # #{(portionKey.to_i+1)}: "
+              = text_field :food_items, "portion[#{portionKey.to_i}]", :value => @portion_defaults["#{portionKey}"]
+            
+              = label :food_items, :price[portionKey], 'Price : '
+              = text_field :food_items, "price[#{portionKey.to_i}]", :value => @price_defaults["#{portionKey}"]
+    
+    %li
+      %input#addFIPortion{:type => "button", :value => "Add Portion"}
+      %input#removeFIPortion{:type => "button", :value => "Remove Portion"}
+    
+  = submit_tag 'Save'

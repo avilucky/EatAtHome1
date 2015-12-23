@@ -1,0 +1,7 @@
+
+= form_for([@food_item, @food_image], :html => {:multipart => true}) do
+  .field
+    = label :food_images, :image
+    = file_field :food_images, :img
+  .actions
+    = submit_tag 'Save'

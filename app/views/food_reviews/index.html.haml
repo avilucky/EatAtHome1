@@ -1,0 +1,22 @@
+%h1 Listing Food Reviews
+
+%table
+  %thead
+    %tr
+      %th Rating
+      %th Author
+      %th Comments
+      %th
+      %th
+
+  %tbody
+    - @food_reviews.each do |food_review|
+      %tr
+        %td= food_review.rating
+        %td
+          %a{:href => user_path(food_review.user)}
+            %span= food_review.user.full_name
+        %td= food_review.comment
+        - if @current_user!=nil and @current_user.id=food_review.user_id
+          %td= link_to 'Edit', edit_food_item_food_review_path(food_review.food_item, food_review)
+          %td= link_to 'Delete', [food_review.food_item, food_review] , :method => :delete, :data => { :confirm => 'Are you sure?' }
